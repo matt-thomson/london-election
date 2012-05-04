@@ -21,16 +21,24 @@ while 1:
 
     if updated != prev_updated:
       print updated
-      print "        Name         | Vote "
-      print "---------------------+------"
+      print "        Name         |             Party                  | Vote "
+      print "---------------------+------------------------------------+------"
 
       table = soup.find("table", {"class" : "candidates"})
 
       for row in table.tbody.findAll("tr"):
-        name = row.find("td", {"class" : "candidate"}).contents[0]
+        candidate = row.find("td", {"class" : "candidate"})
+        name = candidate.contents[0]
+
+        party = candidate.find("span", {"class" : "party"}).contents
+        if len(party):
+          party = party[0]
+        else:
+          party = 'Independent'
+
         result = row.find("td", {"class" : "result"}).text
 
-        print "%s | %s" % (name.ljust(20), result.rjust(4))
+        print "%s | %s | %s" % (name.ljust(20), party.ljust(34), result.rjust(4))
 
       print "\n"
     
