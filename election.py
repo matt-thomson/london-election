@@ -10,10 +10,15 @@ while 1:
   page = urllib2.urlopen(url)
   soup = BeautifulSoup(page)
 
-  updated = soup.find("p", {"class" : "updated"}).text
+  updated_elt = soup.find("p", {"class" : "updated"})
+  
+  if updated_elt:
+    updated = updated_elt.text
 
   if updated != prev_updated:
     print updated
+    print "        Name         | Vote"
+    print "---------------------+-----"
 
     table = soup.find("table", {"class" : "candidates"})
 
@@ -21,7 +26,7 @@ while 1:
       name = row.find("td", {"class" : "candidate"}).contents[0]
       result = row.find("td", {"class" : "result"}).text
 
-      print "%s : %s" % (name, result)
+      print "%s | %s" % (name.ljust(20), result)
 
     print "\n"
     
