@@ -21,8 +21,8 @@ while 1:
 
     if updated != prev_updated:
       print updated
-      print "        Name         | Vote"
-      print "---------------------+-----"
+      print "        Name         | Vote "
+      print "---------------------+------"
 
       table = soup.find("table", {"class" : "candidates"})
 
@@ -30,7 +30,7 @@ while 1:
         name = row.find("td", {"class" : "candidate"}).contents[0]
         result = row.find("td", {"class" : "result"}).text
 
-        print "%s | %s" % (name.ljust(20), result)
+        print "%s | %s" % (name.ljust(20), result.rjust(4))
 
       print "\n"
     
