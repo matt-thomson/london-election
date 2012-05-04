@@ -3,12 +3,13 @@ from BeautifulSoup import BeautifulSoup
 from time import sleep
 
 url = "http://www.londonelects.org.uk/im-voter/results-and-past-elections/live-results-2012?contest=23"
-page = urllib2.urlopen(url)
-soup = BeautifulSoup(page)
 
 prev_updated = ""
 
 while 1:
+  page = urllib2.urlopen(url)
+  soup = BeautifulSoup(page)
+
   updated = soup.find("p", {"class" : "updated"}).text
   
   if updated != prev_updated:
