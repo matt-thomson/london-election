@@ -7,8 +7,12 @@ url = "http://www.londonelects.org.uk/im-voter/results-and-past-elections/live-r
 prev_updated = ""
 
 while 1:
-  page = urllib2.urlopen(url)
-  soup = BeautifulSoup(page)
+  try:
+    page = urllib2.urlopen(url)
+    soup = BeautifulSoup(page)
+  except:
+    time.sleep(60)
+    continue
 
   updated_elt = soup.find("p", {"class" : "updated"})
   
