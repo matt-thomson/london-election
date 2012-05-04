@@ -11,7 +11,7 @@ while 1:
     page = urllib2.urlopen(url)
     soup = BeautifulSoup(page)
   except:
-    time.sleep(60)
+    sleep(60)
     continue
 
   updated_elt = soup.find("p", {"class" : "updated"})
