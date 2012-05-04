@@ -6,18 +6,24 @@ url = "http://www.londonelects.org.uk/im-voter/results-and-past-elections/live-r
 page = urllib2.urlopen(url)
 soup = BeautifulSoup(page)
 
+prev_updated = ""
+
 while 1:
   updated = soup.find("p", {"class" : "updated"}).text
-  print updated
-
-  table = soup.find("table", {"class" : "candidates"})
-
-  for row in table.tbody.findAll("tr"):
-    name = row.find("td", {"class" : "candidate"}).contents[0]
-    result = row.find("td", {"class" : "result"}).text
   
-    print "%s : %s" % (name, result)
+  if updated != prev_updated:
+    print updated
+
+    table = soup.find("table", {"class" : "candidates"})
+
+    for row in table.tbody.findAll("tr"):
+      name = row.find("td", {"class" : "candidate"}).contents[0]
+      result = row.find("td", {"class" : "result"}).text
   
-  print "\n"
+      print "%s : %s" % (name, result)
+  
+    print "\n"
+	
+  prev_updated = updated
   
   sleep(60)
