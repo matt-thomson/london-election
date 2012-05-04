@@ -11,7 +11,7 @@ while 1:
   soup = BeautifulSoup(page)
 
   updated = soup.find("p", {"class" : "updated"}).text
-  
+
   if updated != prev_updated:
     print updated
 
@@ -20,11 +20,11 @@ while 1:
     for row in table.tbody.findAll("tr"):
       name = row.find("td", {"class" : "candidate"}).contents[0]
       result = row.find("td", {"class" : "result"}).text
-  
+
       print "%s : %s" % (name, result)
-  
+
     print "\n"
-	
+    
   prev_updated = updated
-  
+
   sleep(60)
